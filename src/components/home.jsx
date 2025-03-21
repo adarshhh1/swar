@@ -1,34 +1,62 @@
 import { motion } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import homeImage from "../media/home/home.png";
 import logo from "../media/home/logo.png";
 import musicFile from "../media/home/music.mp3";
 
 const Home = () => {
   const audioRef = useRef(new Audio(musicFile));
+  const [isUserInteracted, setIsUserInteracted] = useState(false);
+
+  useEffect(() => {
+    const enableAudio = () => setIsUserInteracted(true);
+    document.addEventListener("click", enableAudio);
+    return () => document.removeEventListener("click", enableAudio);
+  }, []);
 
   const playMusic = () => {
-    audioRef.current.currentTime = 28; // Start music from 28 seconds
-    audioRef.current.play();
+    if (isUserInteracted) {
+      audioRef.current.currentTime = 28;
+      audioRef.current
+        .play()
+        .catch((err) => console.log("Autoplay blocked:", err));
+    }
   };
 
   const stopMusic = () => {
     audioRef.current.pause();
-    audioRef.current.currentTime = 28; // Reset to 28 seconds
+    audioRef.current.currentTime = 28;
   };
 
   return (
     <div className="bg-[#F5DEB3] min-h-screen flex flex-col md:flex-row items-center justify-center text-center md:text-left p-6 md:p-12">
-      <div className="flex flex-col md:flex-row items-center md:items-start w-full md:w-3/4 space-x-6">
-        <motion.img
-          src={logo}
-          alt="Swar Logo"
-          className="w-32 h-32 md:w-44 md:h-44 drop-shadow-lg"
-          whileHover={{ scale: 1.1, rotate: 5 }}
-          transition={{ duration: 0.3, ease: "easeOut" }}
-          onMouseEnter={playMusic}
-          onMouseLeave={stopMusic}
-        />
+      <div className="flex flex-col md:flex-row items-center md:items-start w-full md:w-3/4 space-x-6 relative">
+        <div className="relative">
+          <motion.img
+            src={logo}
+            alt="Swar Logo"
+            className="w-32 h-32 md:w-44 md:h-44 drop-shadow-lg cursor-pointer"
+            whileHover={{ scale: 1.1, rotate: 5 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            onMouseEnter={playMusic}
+            onMouseLeave={stopMusic}
+          />
+          {/* Floating Musical Notes above logo on hover */}
+          <motion.div
+            className="absolute -top-6 left-1/2 transform -translate-x-1/2 text-[#A0522D] text-2xl"
+            initial={{ opacity: 0, y: 10 }}
+            whileHover={{ opacity: 1, y: -30 }}
+            animate={{ y: -50, opacity: 0 }}
+            transition={{
+              duration: 1,
+              ease: "easeOut",
+              repeat: Infinity,
+              repeatType: "loop",
+            }}
+          >
+            🎵 🎶
+          </motion.div>
+        </div>
         <div className="flex flex-col items-center md:items-start">
           <motion.h1
             initial={{ opacity: 0, y: -30 }}

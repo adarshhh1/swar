@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/navbar";
 import Homee from "./components/home";
 
-const Home = () => <h1 className="text-center text-2xl mt-10">Home Page</h1>;
+const Home = () => <h1 className="text-center text-2xl mt-10"></h1>;
 const About = () => <h1 className="text-center text-2xl mt-10">About Us</h1>;
 const Team = () => <h1 className="text-center text-2xl mt-10">Team</h1>;
 const Magazine = () => <h1 className="text-center text-2xl mt-10">Magazine</h1>;
