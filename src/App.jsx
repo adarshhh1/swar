@@ -2,6 +2,7 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/navbar";
 import Homee from "./components/home";
+import Teamm from "./components/team";
 
 const Home = () => <h1 className="text-center text-2xl mt-10"></h1>;
 const About = () => <h1 className="text-center text-2xl mt-10">About Us</h1>;
@@ -37,6 +38,7 @@ function App() {
         <Route path="/contactus" element={<Contact />} />
       </Routes>
       <Homee />
+      <Teamm />
     </>
   );
 }
