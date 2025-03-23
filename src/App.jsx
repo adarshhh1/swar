@@ -10,6 +10,7 @@ import About from "./components/about";
 import Artist from "./components/artist";
 import Contact from "./components/contact";
 import Gallery from "./components/gallary";
+import Footer from "./components/footer";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/contactus" element={<Contact />} />
       </Routes>
+      <Footer />
     </>
   );
 }
