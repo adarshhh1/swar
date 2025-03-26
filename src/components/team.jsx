@@ -4,47 +4,47 @@ import teamData from "../data/teamData";
 
 const Team = () => {
   return (
-    <div className="bg-[#F5DEB3] min-h-screen py-12 px-6">
-      <h1 className="text-4xl font-bold text-center text-[#8B4513] mb-12 drop-shadow-lg">
+    <div className="min-h-screen bg-gradient-to-br from-[#FDEBD0] to-[#F5CBA7] py-16 px-6 flex flex-col items-center">
+      {/* Title */}
+      <motion.h1
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1 }}
+        className="text-4xl font-semibold text-center text-[#8B4513] mb-10"
+      >
         Meet Our Team
-      </h1>
-      {teamData.map((category, index) => (
-        <div key={index} className="mb-12">
-          <h2 className="text-2xl font-semibold text-[#8B4513] mb-6 text-center">
-            {category.title}
-          </h2>
-          <div className="flex flex-wrap justify-center gap-8">
-            {category.members.map((member, idx) => (
-              <FloatingCircleCard key={idx} member={member} />
-            ))}
-          </div>
-        </div>
-      ))}
+      </motion.h1>
+
+      {/* Team Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+        {teamData.flatMap((category, catIndex) =>
+          category.members.map((member, memIndex) => (
+            <MemberCard key={`${catIndex}-${memIndex}`} member={member} />
+          ))
+        )}
+      </div>
     </div>
   );
 };
 
-const FloatingCircleCard = ({ member }) => {
-  const sizes = ["w-24 h-24", "w-32 h-32", "w-40 h-40", "w-48 h-48"];
-  const randomSize = sizes[Math.floor(Math.random() * sizes.length)];
-
+const MemberCard = ({ member }) => {
   return (
-    <div className="flex flex-col items-center relative">
-      <motion.div
-        className={`relative ${randomSize} rounded-full bg-[#8B4513] text-white flex items-center justify-center shadow-xl overflow-hidden cursor-pointer group`}
-        whileHover={{ scale: 1.2 }}
-        animate={{ y: [0, -10, 0] }}
-        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-      >
-        <div className="w-3/4 h-3/4 rounded-full bg-gray-300 overflow-hidden flex items-center justify-center">
-          {/* Image can be placed here */}
-        </div>
-      </motion.div>
-      <h3 className="mt-2 text-md font-semibold text-[#8B4513] text-center">
+    <motion.div
+      className="relative bg-white rounded-lg shadow-md p-[25px] flex flex-col items-center transition-all hover:shadow-lg"
+      whileHover={{ scale: 1.05 }}
+    >
+      <div className="w-20 h-20 rounded-full bg-gray-300 flex items-center justify-center overflow-hidden border-2 border-[#D2691E]">
+        <img
+          src={member.image || "https://via.placeholder.com/100"}
+          alt={member.name}
+          className="w-full h-full object-cover"
+        />
+      </div>
+      <h3 className="mt-4 text-lg font-semibold text-gray-800">
         {member.name}
       </h3>
-      <p className="text-sm text-[#8B4513] text-center">{member.role}</p>
-    </div>
+      <p className="text-sm text-gray-500">{member.role}</p>
+    </motion.div>
   );
 };
 
