@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import teamData from "../data/teamData";
 import Slider from "react-slick";
@@ -6,6 +6,26 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const Team = () => {
+  const [bgColor, setBgColor] = useState("#000000"); // Start with black
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      const transitionPoint = window.innerHeight * 0.8; // 80% of viewport height
+
+      // Calculate dynamic fade between black and white
+      const opacity = Math.min(scrollPosition / transitionPoint, 1);
+      const newBgColor = `rgb(${255 * opacity}, ${255 * opacity}, ${
+        255 * opacity
+      })`;
+
+      setBgColor(newBgColor);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const settings = {
     dots: false,
     infinite: true,
@@ -24,44 +44,65 @@ const Team = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#FDEBD0] to-[#F5CBA7] py-16 px-6 flex flex-col items-center relative">
-      <motion.h1
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1 }}
-        className="text-4xl font-semibold text-center text-[#8B4513] mb-10"
-      >
-        Meet Our Team
-      </motion.h1>
-
-      <div className="max-w-6xl w-full space-y-10">
-        {teamData.map((category, index) => (
-          <div key={index} className="text-center">
-            <h2 className="text-2xl font-semibold text-[#D2691E] mb-6 uppercase border-b-2 border-[#D2691E] pb-2">
-              {category.title}
-            </h2>
-            <Slider {...settings} className="px-4">
-              {category.members.map((member, memIndex) => (
-                <MemberCard key={memIndex} member={member} />
-              ))}
-            </Slider>
-          </div>
-        ))}
+    <motion.div
+      className="transition-all duration-700"
+      style={{ backgroundColor: bgColor, minHeight: "100vh" }}
+    >
+      {/* Full Page Title Section */}
+      <div className="h-screen flex justify-center items-center bg-black">
+        <motion.h1
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          className="text-6xl font-extrabold text-white uppercase"
+        >
+          Meet Our Team
+        </motion.h1>
       </div>
-    </div>
+
+      {/* Team Section */}
+      <div className="py-16 px-6 flex flex-col items-center transition-all duration-700">
+        <div className="max-w-6xl w-full space-y-10">
+          {teamData.map((category, index) => (
+            <div key={index} className="text-center">
+              <h2 className="text-2xl font-semibold text-black mb-6 uppercase border-b-2 border-gray-500 pb-2">
+                {category.title}
+              </h2>
+              <Slider {...settings} className="px-4">
+                {category.members.map((member, memIndex) => (
+                  <MemberCard
+                    key={memIndex}
+                    member={member}
+                    bgColor={bgColor}
+                  />
+                ))}
+              </Slider>
+            </div>
+          ))}
+        </div>
+      </div>
+    </motion.div>
   );
 };
 
-const MemberCard = ({ member }) => {
+const MemberCard = ({ member, bgColor }) => {
+  const textColor =
+    bgColor === "rgb(255, 255, 255)" ? "text-black" : "text-white";
+  const borderColor =
+    bgColor === "rgb(255, 255, 255)" ? "border-gray-300" : "border-gray-700";
+
   return (
-    <motion.div className="relative bg-white bg-opacity-90 backdrop-blur-md border border-[#D2691E] shadow-lg rounded-2xl p-6 flex flex-col items-center justify-between transition-all w-64 h-80 mx-auto">
-      {/* Profile Image */}
+    <motion.div
+      className={`relative border shadow-lg rounded-2xl p-6 flex flex-col items-center justify-between transition-all w-64 h-80 mx-auto ${borderColor} ${textColor}`}
+      style={{ backgroundColor: bgColor }}
+    >
+      {/* Profile Image (Colored) */}
       <motion.div
-        className="w-24 h-24 rounded-full bg-gradient-to-r from-[#D2691E] to-[#8B4513] p-1 flex items-center justify-center overflow-hidden border-4 border-[#FDEBD0] shadow-md transition-transform"
+        className="w-24 h-24 rounded-full p-1 flex items-center justify-center overflow-hidden border-4 shadow-md transition-transform"
         whileHover={{ scale: 1.2 }}
       >
         <img
-          src={member.image} // Directly use the image path from teamData.js
+          src={member.image}
           alt={member.name}
           className="w-full h-full object-cover rounded-full"
         />
@@ -69,16 +110,14 @@ const MemberCard = ({ member }) => {
 
       {/* Name */}
       <motion.h3
-        className="mt-4 text-xl font-bold text-[#8B4513] text-center w-full transition-transform"
-        whileHover={{ scale: 1.1, color: "#D2691E" }}
+        className="mt-4 text-xl font-bold text-center w-full transition-transform"
+        whileHover={{ scale: 1.1 }}
       >
         {member.name}
       </motion.h3>
 
       {/* Role */}
-      <p className="text-sm text-[#D2691E] font-medium text-center w-full">
-        {member.role}
-      </p>
+      <p className="text-sm font-medium text-center w-full">{member.role}</p>
     </motion.div>
   );
 };

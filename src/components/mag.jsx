@@ -7,15 +7,14 @@ const fetchBooks = async () => {
       "https://openlibrary.org/subjects/hindi.json?limit=20"
     );
     const data = await response.json();
-    console.log("Fetched Data:", data); // Debugging API Response
+    console.log("Fetched Data:", data);
 
-    if (!data.works) return []; // Prevents errors if API fails
+    if (!data.works) return [];
 
-    // Filter books: Must have cover, exclude dictionaries
     return data.works.filter(
       (book) =>
-        book.cover_id && // Ensure cover exists
-        !book.title.toLowerCase().includes("dictionary") && // Exclude dictionaries
+        book.cover_id &&
+        !book.title.toLowerCase().includes("dictionary") &&
         (book.title.toLowerCase().includes("hindi") ||
           book.title.toLowerCase().includes("literature"))
     );
@@ -33,18 +32,18 @@ const Magazine = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#FDEBD0] to-[#F5CBA7] py-16 px-6 flex flex-col items-center">
+    <div className="min-h-screen bg-black py-16 px-6 flex flex-col items-center">
       <motion.h1
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
-        className="text-4xl font-semibold text-center text-[#8B4513] mb-10"
+        className="text-4xl font-bold text-center text-white mb-10 uppercase"
       >
         Hindi Literature Books
       </motion.h1>
 
       {books.length === 0 ? (
-        <p className="text-gray-700 text-lg">
+        <p className="text-gray-400 text-lg">
           No books found. Try searching manually.
         </p>
       ) : (
@@ -64,22 +63,23 @@ const BookCard = ({ book, rank }) => {
   const handleSearch = () => {
     const searchQuery = encodeURIComponent(book.title + " book");
     const googleSearchURL = `https://www.google.com/search?q=${searchQuery}`;
-    window.open(googleSearchURL, "_blank"); // Open in new tab
+    window.open(googleSearchURL, "_blank");
   };
 
   const coverURL = `https://covers.openlibrary.org/b/id/${book.cover_id}-M.jpg`;
 
   return (
     <motion.div
-      className="relative bg-white rounded-lg shadow-md p-6 flex flex-col items-center transition-all hover:shadow-lg cursor-pointer"
-      whileHover={{ scale: 1.05 }}
+      className="relative bg-gray-900 rounded-lg shadow-lg p-6 flex flex-col items-center transition-all hover:shadow-2xl cursor-pointer border border-white"
+      whileHover={{ scale: 1.05, borderColor: "#ffffff" }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      onClick={handleSearch} // Click to search book on Google
+      onClick={handleSearch}
     >
+      {/* Book Cover */}
       <motion.div
-        className="w-32 h-48 rounded-lg bg-gray-300 flex items-center justify-center overflow-hidden border-2 border-[#D2691E]"
-        whileHover={{ scale: 1.1 }} // Smooth zoom-in on hover
+        className="w-32 h-48 rounded-lg bg-gray-700 flex items-center justify-center overflow-hidden border-2 border-white"
+        whileHover={{ scale: 1.1 }}
       >
         <img
           src={coverURL}
@@ -87,14 +87,16 @@ const BookCard = ({ book, rank }) => {
           className="w-full h-full object-cover"
         />
       </motion.div>
-      <h3 className="mt-4 text-lg font-semibold text-gray-800 text-center">
+
+      {/* Book Details */}
+      <h3 className="mt-4 text-lg font-semibold text-white text-center">
         #{rank} {book.title}
       </h3>
-      <p className="text-sm text-gray-500">
+      <p className="text-sm text-gray-300">
         {book.authors?.map((a) => a.name).join(", ") || "Unknown Author"}
       </p>
 
-      {/* Show Enlarged Book Cover on Hover */}
+      {/* Enlarged Cover on Hover */}
       {hovered && (
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
@@ -105,7 +107,7 @@ const BookCard = ({ book, rank }) => {
           <img
             src={coverURL}
             alt={book.title}
-            className="w-48 h-64 object-cover border-4 border-white rounded-lg shadow-lg"
+            className="w-48 h-64 object-cover border-4 border-white rounded-lg shadow-xl"
           />
         </motion.div>
       )}

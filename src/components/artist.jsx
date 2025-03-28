@@ -87,29 +87,33 @@ const ArtistCorner = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#FDEBD0] to-[#F5CBA7] py-16 px-6 flex flex-col items-center">
+    <div className="min-h-screen bg-black text-white py-16 px-6 flex flex-col items-center">
+      {/* Music Section */}
       <motion.h1
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
-        className="text-4xl font-semibold text-center text-[#8B4513] mb-10"
+        className="text-4xl font-semibold text-center border-b-2 border-white pb-2 mb-10"
       >
         Top 10 Indian Classical Music
       </motion.h1>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
         {topIndianClassicalMusic.map((track, index) => (
           <MusicCard key={index} track={track} />
         ))}
       </div>
 
+      {/* Art Section */}
       <motion.h1
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
-        className="text-4xl font-semibold text-center text-[#8B4513] mt-16 mb-10"
+        className="text-4xl font-semibold text-center border-b-2 border-white pb-2 mt-16 mb-10"
       >
         Art of the Day
       </motion.h1>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
         {artData.map((art, index) => (
           <ArtCard key={index} art={art} />
@@ -123,17 +127,18 @@ const MusicCard = ({ track }) => {
   const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(
     track.title
   )}`;
+
   return (
     <motion.div
-      className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center transition-all hover:shadow-lg cursor-pointer w-72"
+      className="bg-[#1a1a1a] rounded-lg shadow-md p-6 flex flex-col items-center transition-all hover:shadow-lg cursor-pointer w-72 border border-white"
       whileHover={{ scale: 1.05 }}
       onClick={() => window.open(searchUrl, "_blank")}
     >
-      <h3 className="text-lg font-semibold text-gray-800 text-center">
+      <h3 className="text-lg font-semibold text-white text-center">
         {track.title}
       </h3>
-      <p className="text-sm text-gray-500 text-center">{track.artist}</p>
-      <p className="text-xs text-gray-600 text-center mt-2">
+      <p className="text-sm text-gray-400 text-center">{track.artist}</p>
+      <p className="text-xs text-gray-500 text-center mt-2">
         {track.description}
       </p>
     </motion.div>
@@ -144,9 +149,10 @@ const ArtCard = ({ art }) => {
   const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(
     art.title
   )}`;
+
   return (
     <motion.div
-      className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center transition-all hover:shadow-lg cursor-pointer w-72"
+      className="bg-[#1a1a1a] rounded-lg shadow-md p-6 flex flex-col items-center transition-all hover:shadow-lg cursor-pointer w-72 border border-white"
       whileHover={{ scale: 1.05 }}
       onClick={() => window.open(searchUrl, "_blank")}
     >
@@ -157,11 +163,12 @@ const ArtCard = ({ art }) => {
           className="w-full h-40 object-cover mb-4 rounded-lg"
         />
       )}
-      <h3 className="text-lg font-semibold text-gray-800 text-center">
+
+      <h3 className="text-lg font-semibold text-white text-center">
         {art.title}
       </h3>
-      <p className="text-sm text-gray-500 text-center">{art.artist}</p>
-      <p className="text-xs text-gray-600 text-center mt-2">
+      <p className="text-sm text-gray-400 text-center">{art.artist}</p>
+      <p className="text-xs text-gray-500 text-center mt-2">
         {art.description}
       </p>
     </motion.div>

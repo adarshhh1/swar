@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import emailjs from "@emailjs/browser";
+import { motion } from "framer-motion";
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({
@@ -38,21 +39,28 @@ const ContactUs = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#F5DEB3] text-black">
-      {/* Hero Section */}
-      <div className="text-center py-16 bg-[#F5DEB3]">
-        <h1 className="text-4xl font-bold text-brown-700">Get in Touch</h1>
-        <p className="mt-2 text-lg text-brown-500">
-          Have questions or feedback? We’d love to hear from you!
-        </p>
-      </div>
+    <div className="min-h-screen bg-black text-white flex flex-col items-center py-16 px-6">
+      {/* Heading */}
+      <motion.h1
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1 }}
+        className="text-4xl font-bold border-b border-gray-600 pb-2 mb-10 text-center"
+      >
+        Contact Us
+      </motion.h1>
 
-      {/* Contact Form & Details */}
-      <div className="container mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-2 gap-10">
+      {/* Contact Form & Info */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl w-full">
         {/* Contact Form */}
-        <div className="bg-white text-black shadow-xl rounded-lg p-8 transition transform hover:scale-105">
-          <h2 className="text-3xl font-semibold text-center text-brown-700 mb-5">
-            Contact Us
+        <motion.div
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1 }}
+          className="bg-gray-900 shadow-lg rounded-lg p-8 w-full transform hover:scale-105 transition"
+        >
+          <h2 className="text-3xl font-semibold text-center mb-5">
+            Get in Touch
           </h2>
           <form onSubmit={sendEmail} className="space-y-4">
             <input
@@ -61,7 +69,7 @@ const ContactUs = () => {
               placeholder="Your Name"
               value={formData.name}
               onChange={handleChange}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brown-400"
+              className="w-full p-3 bg-black text-white border border-gray-700 rounded-lg focus:ring-2 focus:ring-gray-500"
               required
             />
             <input
@@ -70,7 +78,7 @@ const ContactUs = () => {
               placeholder="Your Email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brown-400"
+              className="w-full p-3 bg-black text-white border border-gray-700 rounded-lg focus:ring-2 focus:ring-gray-500"
               required
             />
             <textarea
@@ -79,66 +87,60 @@ const ContactUs = () => {
               rows="4"
               value={formData.message}
               onChange={handleChange}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brown-400"
+              className="w-full p-3 bg-black text-white border border-gray-700 rounded-lg focus:ring-2 focus:ring-gray-500"
               required
             ></textarea>
 
             {error && <p className="text-red-500 text-center">{error}</p>}
             {isSent && (
-              <p className="text-green-600 text-center">
+              <p className="text-green-400 text-center">
                 ✅ Message sent successfully!
               </p>
             )}
 
             <button
               type="submit"
-              className="w-full bg-[#8B4513] text-white p-3 rounded-lg hover:bg-[#A0522D] transition"
+              className="w-full bg-white text-black p-3 rounded-lg font-semibold hover:bg-gray-300 transition"
             >
               Send Message
             </button>
           </form>
-        </div>
+        </motion.div>
 
         {/* Contact Information */}
-        <div className="bg-white text-black shadow-xl rounded-lg p-8 transition transform hover:scale-105">
-          <h2 className="text-3xl font-semibold text-brown-700 mb-5">
-            Reach Us
-          </h2>
-          <p className="text-brown-600 mb-4">
-            Whether you have inquiries about events, collaborations, or just
-            want to chat about music, we are here for you! Let's create
-            something extraordinary together. Reach out to explore partnership
-            opportunities, sponsorships, and event collaborations.
-          </p>
-          <p className="text-brown-600 mb-4">
-            We believe in the power of music to bring people together. If you're
-            an artist, sponsor, or event organizer, let's connect and create
-            something magical. Partner with us to make an impact in the world of
-            classical music!
+        <motion.div
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1 }}
+          className="bg-gray-900 shadow-lg rounded-lg p-8 w-full transform hover:scale-105 transition"
+        >
+          <h2 className="text-3xl font-semibold mb-5">Reach Us</h2>
+          <p className="text-gray-400 mb-4">
+            Have questions? Let's collaborate!
           </p>
 
-          {/* Social Media Links */}
+          {/* Social Links */}
           <div className="mt-5 flex flex-col space-y-4">
             <a
               href="https://www.facebook.com/anshikachohann"
-              className="text-brown-700 text-lg hover:text-brown-500 transition transform hover:scale-110"
+              className="text-white text-lg hover:text-gray-400 transition"
             >
               🎵 Facebook
             </a>
             <a
               href="mailto:internationalswarmusicalfounda@gmail.com"
-              className="text-brown-700 text-lg hover:text-brown-500 transition transform hover:scale-110"
+              className="text-white text-lg hover:text-gray-400 transition"
             >
               📧 Email
             </a>
             <a
               href="https://www.youtube.com/@swarmusicalfoundationsmfan2633"
-              className="text-brown-700 text-lg hover:text-brown-500 transition transform hover:scale-110"
+              className="text-white text-lg hover:text-gray-400 transition"
             >
               🎻 YouTube
             </a>
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );

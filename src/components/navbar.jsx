@@ -11,59 +11,66 @@ const Navbar = () => {
       initial={{ opacity: 0, y: -30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className="bg-[#8B4513] text-[#FFF8DC] shadow-xl border-b-4 border-[#A0522D] font-serif"
+      className="bg-gray-50 text-gray-900 shadow-lg border-b border-gray-300 font-sans fixed top-0 w-full z-50"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-14 items-center">
-          Swar Musical Foundation
-          <div className="hidden md:flex space-x-4">
-            {[
-              "Home",
-              "About Us",
-              "Team",
-              "Magazine",
-              "Artist Corner",
-              "Music Features",
-              "Top Trends",
-              "Gallery",
-              "Contact Us",
-            ].map((item, index) => (
-              <motion.div
-                key={index}
-                whileHover={{ scale: 1.05, rotate: -5 }}
-                whileTap={{ scale: 0.95 }}
-                transition={{ type: "spring", stiffness: 200 }}
-              >
-                <Link
-                  to={`/${item.replace(/\s+/g, "").toLowerCase()}`}
-                  className="hover:text-[#D2691E] transition font-medium text-sm tracking-wide px-2 py-1 rounded-md hover:bg-[#FFF8DC] hover:text-[#8B4513]"
-                >
-                  {item}
-                </Link>
-              </motion.div>
-            ))}
-          </div>
-          <motion.div
-            className="md:hidden"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="text-[#F5DEB3]"
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 flex justify-between h-16 items-center">
+        {/* Logo - Smaller and Left Aligned */}
+        <Link
+          to="/"
+          className="text-lg font-extrabold tracking-wide text-[#2C3E50] ml-2 whitespace-nowrap"
+        >
+          Swar Musical
+        </Link>
+
+        {/* Desktop Navigation */}
+        <div className="hidden md:flex space-x-6">
+          {[
+            "Home",
+            "About Us",
+            "Team",
+            "Magazine",
+            "Artist Corner",
+            "Music Features",
+            "Top Trends",
+            "Gallery",
+            "Contact Us",
+          ].map((item, index) => (
+            <motion.div
+              key={index}
+              whileHover={{ scale: 1.05, rotate: -2 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 200 }}
             >
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </motion.div>
+              <Link
+                to={`/${item.replace(/\s+/g, "").toLowerCase()}`}
+                className="hover:text-[#F39C12] transition text-sm font-medium tracking-wide px-3 py-2 rounded-lg hover:bg-[#2C3E50] hover:text-white"
+              >
+                {item}
+              </Link>
+            </motion.div>
+          ))}
         </div>
+
+        {/* Mobile Menu Button */}
+        <motion.div
+          className="md:hidden"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+        >
+          <button onClick={() => setIsOpen(!isOpen)} className="text-[#2C3E50]">
+            {isOpen ? <X size={28} /> : <Menu size={28} />}
+          </button>
+        </motion.div>
       </div>
+
+      {/* Mobile Navigation */}
       <motion.div
         initial={{ height: 0, opacity: 0 }}
         animate={
           isOpen ? { height: "auto", opacity: 1 } : { height: 0, opacity: 0 }
         }
         transition={{ duration: 0.5, ease: "easeInOut" }}
-        className="md:hidden overflow-hidden bg-[#A0522D] p-3 border-t-2 border-[#D2691E] rounded-b-lg shadow-lg"
+        className="md:hidden overflow-hidden bg-[#2C3E50] p-4 border-t border-[#F39C12] rounded-b-lg shadow-lg"
       >
         {[
           "Home",
@@ -78,13 +85,13 @@ const Navbar = () => {
         ].map((item, index) => (
           <motion.div
             key={index}
-            whileHover={{ scale: 1.05, rotate: -5 }}
+            whileHover={{ scale: 1.05, rotate: -2 }}
             whileTap={{ scale: 0.95 }}
             transition={{ type: "spring", stiffness: 200 }}
           >
             <Link
               to={`/${item.replace(/\s+/g, "").toLowerCase()}`}
-              className="block py-2 hover:text-[#F5DEB3] font-medium text-sm tracking-wide border-b border-[#D2691E] last:border-b-0"
+              className="block py-2 text-white hover:text-[#F39C12] text-sm font-medium tracking-wide border-b border-[#F39C12] last:border-b-0"
               onClick={() => setIsOpen(false)}
             >
               {item}

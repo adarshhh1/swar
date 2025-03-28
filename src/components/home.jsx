@@ -1,99 +1,94 @@
-import { motion } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
-import homeImage from "../media/home/home.png";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 import logo from "../media/home/logo.png";
-import musicFile from "../media/home/music.mp3";
+import backgroundImage from "../media/home/background.jpg";
 
-const Home = () => {
-  const audioRef = useRef(new Audio(musicFile));
-  const [isUserInteracted, setIsUserInteracted] = useState(false);
-
-  useEffect(() => {
-    const enableAudio = () => setIsUserInteracted(true);
-    document.addEventListener("click", enableAudio);
-    return () => document.removeEventListener("click", enableAudio);
-  }, []);
-
-  const playMusic = () => {
-    if (isUserInteracted) {
-      audioRef.current.currentTime = 28;
-      audioRef.current
-        .play()
-        .catch((err) => console.log("Autoplay blocked:", err));
-    }
-  };
-
-  const stopMusic = () => {
-    audioRef.current.pause();
-    audioRef.current.currentTime = 28;
-  };
+const ScrollFadeIn = ({ children, delay = 0.3 }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
 
   return (
-    <div className="bg-[#F5DEB3] min-h-screen flex flex-col md:flex-row items-center justify-center text-center md:text-left p-6 md:p-12">
-      <div className="flex flex-col md:flex-row items-center md:items-start w-full md:w-3/4 space-x-6 relative">
-        <div className="relative">
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 30 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.6, delay }}
+    >
+      {children}
+    </motion.div>
+  );
+};
+
+const Home = () => {
+  return (
+    <div className="min-h-screen flex flex-col text-white">
+      {/* Hero Section */}
+      <div
+        className="h-screen flex flex-col justify-center items-center text-center bg-cover bg-center relative"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(${backgroundImage})`,
+        }}
+      >
+        <div className="absolute left-10 top-1/2 transform -translate-y-1/2">
           <motion.img
             src={logo}
-            alt="Swar Logo"
-            className="w-32 h-32 md:w-44 md:h-44 drop-shadow-lg cursor-pointer"
+            alt="Swar Musical Foundation Logo"
+            className="w-40 md:w-56 drop-shadow-lg"
             whileHover={{ scale: 1.1, rotate: 5 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
-            onMouseEnter={playMusic}
-            onMouseLeave={stopMusic}
           />
-          {/* Floating Musical Notes above logo on hover */}
-          <motion.div
-            className="absolute -top-6 left-1/2 transform -translate-x-1/2 text-[#A0522D] text-2xl"
-            initial={{ opacity: 0, y: 10 }}
-            whileHover={{ opacity: 1, y: -30 }}
-            animate={{ y: -50, opacity: 0 }}
-            transition={{
-              duration: 1,
-              ease: "easeOut",
-              repeat: Infinity,
-              repeatType: "loop",
-            }}
-          >
-            🎵 🎶
-          </motion.div>
         </div>
-        <div className="flex flex-col items-center md:items-start">
-          <motion.h1
-            initial={{ opacity: 0, y: -30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: "easeOut" }}
-            className="text-5xl md:text-6xl font-bold text-[#8B4513] drop-shadow-xl"
-          >
-            Welcome to Swar Musical Foundation
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.5, ease: "easeOut" }}
-            className="text-lg md:text-xl text-[#A0522D] max-w-md mt-4"
-          >
-            Discover the world of Indian Classical Music through melodies that
-            resonate with your soul.
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, ease: "easeOut" }}
-            className="mt-4"
-          >
-            <button className="px-6 py-3 bg-[#D2691E] text-[#FFF8DC] rounded-lg text-lg font-medium shadow-lg hover:bg-[#A0522D] transition-all duration-300">
-              Explore More
-            </button>
-          </motion.div>
-        </div>
+        <motion.h1
+          className="text-5xl md:text-7xl font-bold"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          Swar Musical Foundation
+        </motion.h1>
+        <motion.p
+          className="mt-4 text-lg md:text-2xl"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.7, delay: 0.3 }}
+        >
+          "A Powerful Platform for Music, Culture, and Art."
+        </motion.p>
       </div>
-      <motion.img
-        src={homeImage}
-        alt="Indian Classical Music"
-        whileHover={{ scale: 1.05 }}
-        transition={{ duration: 0.3, ease: "easeOut" }}
-        className="w-full md:w-1/2 max-w-lg mt-6 md:mt-0 rounded-lg shadow-xl"
-      />
+
+      {/* About Section */}
+      <div className="p-8 md:p-16 text-center bg-white text-black">
+        <ScrollFadeIn>
+          <h2 className="text-3xl font-semibold">About Us</h2>
+          <p className="mt-4 text-gray-700 max-w-3xl mx-auto">
+            Swar Musical Foundation is a dedicated institution promoting Indian
+            classical, light, and folk music. Our mission is to advance music
+            and art at national and international levels, ensuring cultural
+            heritage is preserved and celebrated.
+          </p>
+        </ScrollFadeIn>
+      </div>
+
+      {/* Core Activities Section */}
+      <div className="p-8 md:p-16 text-left max-w-3xl mx-auto bg-black text-white">
+        <ScrollFadeIn>
+          <h2 className="text-3xl font-semibold">Our Core Activities</h2>
+          <ul className="list-disc list-inside space-y-2 text-gray-300 mt-4">
+            <ScrollFadeIn delay={0.2}>
+              <li>Promoting Indian music and dance.</li>
+            </ScrollFadeIn>
+            <ScrollFadeIn delay={0.4}>
+              <li>Providing a platform for talented artists.</li>
+            </ScrollFadeIn>
+            <ScrollFadeIn delay={0.6}>
+              <li>Expanding Indian music’s reach abroad.</li>
+            </ScrollFadeIn>
+            <ScrollFadeIn delay={0.8}>
+              <li>Honoring distinguished artists.</li>
+            </ScrollFadeIn>
+          </ul>
+        </ScrollFadeIn>
+      </div>
     </div>
   );
 };
