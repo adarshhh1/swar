@@ -81,49 +81,38 @@ const Home = () => {
       </section>
 
       {/* Our Core Activities Section */}
-      <section className="px-6 sm:px-8 md:px-16 py-16 bg-gradient-to-r from-blue-50 to-purple-100 text-gray-800 text-center">
-        <ScrollFadeIn>
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
-            Our Core Activities
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
-            <ScrollFadeIn delay={0.2}>
-              <div className="bg-white py-6 px-4 rounded-xl shadow-md hover:shadow-lg transition-all">
-                <h3 className="text-xl font-semibold">🎵 Musical Heritage</h3>
-                <p className="text-gray-600 mt-2">
-                  Preserving and promoting Indian music traditions.
-                </p>
-              </div>
-            </ScrollFadeIn>
-            <ScrollFadeIn delay={0.4}>
-              <div className="bg-white py-6 px-4 rounded-xl shadow-md hover:shadow-lg transition-all">
-                <h3 className="text-xl font-semibold">🎤 Artist Platform</h3>
-                <p className="text-gray-600 mt-2">
-                  Providing a stage for emerging and seasoned artists.
-                </p>
-              </div>
-            </ScrollFadeIn>
-            <ScrollFadeIn delay={0.6}>
-              <div className="bg-white py-6 px-4 rounded-xl shadow-md hover:shadow-lg transition-all">
-                <h3 className="text-xl font-semibold">🌍 Global Outreach</h3>
-                <p className="text-gray-600 mt-2">
-                  Expanding Indian music’s presence worldwide.
-                </p>
-              </div>
-            </ScrollFadeIn>
-            <ScrollFadeIn delay={0.8}>
-              <div className="bg-white py-6 px-4 rounded-xl shadow-md hover:shadow-lg transition-all">
-                <h3 className="text-xl font-semibold">
-                  🏆 Honoring Excellence
-                </h3>
-                <p className="text-gray-600 mt-2">
-                  Recognizing and celebrating distinguished artists.
-                </p>
-              </div>
-            </ScrollFadeIn>
-          </div>
-        </ScrollFadeIn>
-      </section>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+        {[
+          {
+            title: "🎵 Musical Heritage",
+            desc: "Preserving and promoting Indian music traditions.",
+            delay: 0.2,
+          },
+          {
+            title: "🎤 Artist Platform",
+            desc: "Providing a stage for emerging and seasoned artists.",
+            delay: 0.4,
+          },
+          {
+            title: "🌍 Global Outreach",
+            desc: "Expanding Indian music’s presence worldwide.",
+            delay: 0.6,
+          },
+          {
+            title: "🏆 Honoring Excellence",
+            desc: "Recognizing and celebrating distinguished artists.",
+            delay: 0.8,
+          },
+        ].map((card, idx) => (
+          <ScrollFadeIn key={idx} delay={card.delay}>
+            <div className="flex flex-col h-full bg-white py-6 px-4 rounded-xl shadow-md hover:shadow-lg transition-all">
+              <h3 className="text-xl font-semibold">{card.title}</h3>
+              <p className="text-gray-600 mt-2">{card.desc}</p>
+            </div>
+          </ScrollFadeIn>
+        ))}
+      </div>
+      <br />
     </div>
   );
 };

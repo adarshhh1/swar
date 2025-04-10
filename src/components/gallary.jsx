@@ -29,6 +29,7 @@ const Gallery = () => {
     <div className="min-h-screen bg-black text-white px-4 py-10 flex flex-col items-center ">
       <br />
       <br />
+      <br />
 
       {/* Title */}
       <motion.h1

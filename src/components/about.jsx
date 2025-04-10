@@ -49,6 +49,8 @@ const AboutUs = () => {
         isDark ? "bg-black text-white" : "bg-white text-black"
       }`}
     >
+      <br />
+      <br />
       {/* Intro Section */}
       <motion.div
         className="text-center py-16 px-6 md:px-12 lg:px-20"

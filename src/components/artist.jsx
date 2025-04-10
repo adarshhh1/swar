@@ -88,6 +88,9 @@ const ArtistCorner = () => {
 
   return (
     <div className="min-h-screen bg-black text-white py-16 px-6 flex flex-col items-center">
+      <br />
+      <br />
+
       {/* Music Section */}
       <motion.h1
         initial={{ opacity: 0, y: -20 }}

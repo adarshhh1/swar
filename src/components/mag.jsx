@@ -33,6 +33,8 @@ const Magazine = () => {
 
   return (
     <div className="min-h-screen bg-black py-16 px-6 flex flex-col items-center">
+      <br />
+      <br />
       <motion.h1
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}

@@ -30,7 +30,7 @@ const Navbar = () => {
             "Team",
             "Magazine",
             "Artist Corner",
-            "Music Features",
+
             "Top Trends",
             "Gallery",
             "Contact Us",
@@ -78,7 +78,7 @@ const Navbar = () => {
           "Team",
           "Magazine",
           "Artist Corner",
-          "Music Features",
+
           "Top Trends",
           "Gallery",
           "Contact Us",

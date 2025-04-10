@@ -44,6 +44,11 @@ const Trends = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 p-5">
+      <br />
+      <br />
+      <br />
+      <br />
+
       <h1 className="text-center text-4xl font-bold mb-8 text-blue-600">
         Top Trends in Indian Classical Music (2025)
       </h1>
