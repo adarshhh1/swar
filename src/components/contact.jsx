@@ -39,106 +39,131 @@ const ContactUs = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white flex flex-col items-center py-16 px-6">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-purple-100 text-gray-900 pt-32 pb-20 px-2 flex flex-col items-center">
+      {/* Large Icon Overlapping Cards */}
+      <div className="relative flex justify-center mb-0" style={{ zIndex: 2 }}>
+        <div className="w-20 h-20 bg-purple-100 border-4 border-white rounded-full flex items-center justify-center shadow text-5xl absolute -top-10 md:static md:top-0 md:mb-0" style={{ left: '50%', transform: 'translateX(-50%)' }}>
+          ✉️
+        </div>
+      </div>
       {/* Heading */}
       <motion.h1
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
-        className="text-4xl font-bold border-b border-gray-600 pb-2 mb-10 text-center"
+        className="text-4xl sm:text-5xl font-extrabold text-center text-purple-700 mt-12 mb-4 tracking-tight uppercase"
       >
         Contact Us
       </motion.h1>
-
+      <p className="text-center text-gray-600 mb-10 max-w-xl mx-auto text-lg">We'd love to hear from you! Fill out the form or reach us directly.</p>
       {/* Contact Form & Info */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl w-full">
-        {/* Contact Form */}
+      <div className="relative grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-6 max-w-4xl w-full items-start mt-2">
+        {/* Contact Form Card */}
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1 }}
-          className="bg-gray-900 shadow-lg rounded-lg p-8 w-full transform hover:scale-105 transition"
+          className="relative bg-white border border-purple-200 shadow-xl rounded-2xl p-0 flex flex-col min-w-0"
         >
-          <h2 className="text-3xl font-semibold text-center mb-5">
-            Get in Touch
-          </h2>
-          <form onSubmit={sendEmail} className="space-y-4">
-            <input
-              type="text"
-              name="name"
-              placeholder="Your Name"
-              value={formData.name}
-              onChange={handleChange}
-              className="w-full p-3 bg-black text-white border border-gray-700 rounded-lg focus:ring-2 focus:ring-gray-500"
-              required
-            />
-            <input
-              type="email"
-              name="email"
-              placeholder="Your Email"
-              value={formData.email}
-              onChange={handleChange}
-              className="w-full p-3 bg-black text-white border border-gray-700 rounded-lg focus:ring-2 focus:ring-gray-500"
-              required
-            />
-            <textarea
-              name="message"
-              placeholder="Your Message"
-              rows="4"
-              value={formData.message}
-              onChange={handleChange}
-              className="w-full p-3 bg-black text-white border border-gray-700 rounded-lg focus:ring-2 focus:ring-gray-500"
-              required
-            ></textarea>
-
-            {error && <p className="text-red-500 text-center">{error}</p>}
-            {isSent && (
-              <p className="text-green-400 text-center">
-                ✅ Message sent successfully!
-              </p>
-            )}
-
-            <button
-              type="submit"
-              className="w-full bg-white text-black p-3 rounded-lg font-semibold hover:bg-gray-300 transition"
-            >
-              Send Message
-            </button>
-          </form>
+          {/* Accent Bar */}
+          <div className="h-2 w-full bg-purple-400 rounded-t-2xl" />
+          <div className="p-6 sm:p-8">
+            <h2 className="text-xl font-bold text-purple-700 text-center mb-4">Send a Message</h2>
+            <form onSubmit={sendEmail} className="space-y-5">
+              {/* Floating Labels */}
+              <div className="relative mt-2">
+                <input
+                  type="text"
+                  name="name"
+                  id="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  className="peer w-full p-3 bg-white border border-purple-200 rounded-lg focus:ring-2 focus:ring-purple-400 text-gray-900 placeholder-transparent"
+                  placeholder="Your Name"
+                  autoComplete="off"
+                  required
+                />
+                <label htmlFor="name" className="absolute left-3 top-2.5 text-gray-400 text-sm transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-gray-400 peer-focus:-top-4 peer-focus:text-xs peer-focus:text-purple-700 bg-white px-1 pointer-events-none">Your Name</label>
+              </div>
+              <div className="relative mt-2">
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className="peer w-full p-3 bg-white border border-purple-200 rounded-lg focus:ring-2 focus:ring-purple-400 text-gray-900 placeholder-transparent"
+                  placeholder="Your Email"
+                  autoComplete="off"
+                  required
+                />
+                <label htmlFor="email" className="absolute left-3 top-2.5 text-gray-400 text-sm transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-gray-400 peer-focus:-top-4 peer-focus:text-xs peer-focus:text-purple-700 bg-white px-1 pointer-events-none">Your Email</label>
+              </div>
+              <div className="relative mt-2">
+                <textarea
+                  name="message"
+                  id="message"
+                  rows="4"
+                  value={formData.message}
+                  onChange={handleChange}
+                  className="peer w-full p-3 bg-white border border-purple-200 rounded-lg focus:ring-2 focus:ring-purple-400 text-gray-900 placeholder-transparent"
+                  placeholder="Your Message"
+                  autoComplete="off"
+                  required
+                ></textarea>
+                <label htmlFor="message" className="absolute left-3 top-2.5 text-gray-400 text-sm transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-gray-400 peer-focus:-top-4 peer-focus:text-xs peer-focus:text-purple-700 bg-white px-1 pointer-events-none">Your Message</label>
+              </div>
+              {error && <p className="text-red-500 text-center">{error}</p>}
+              {isSent && <p className="text-green-600 text-center">✅ Message sent successfully!</p>}
+              <button
+                type="submit"
+                className="w-full bg-purple-600 text-white p-3 rounded-lg font-semibold hover:bg-purple-700 transition"
+              >
+                Send Message
+              </button>
+            </form>
+          </div>
         </motion.div>
-
-        {/* Contact Information */}
+        {/* Divider with OR on desktop */}
+        <div className="hidden md:flex flex-col items-center justify-center min-w-[60px]">
+          <div className="w-10 h-10 bg-purple-100 border-2 border-purple-200 rounded-full flex items-center justify-center shadow text-base font-bold text-purple-600 mb-2 opacity-70">OR</div>
+        </div>
+        {/* Contact Information Card */}
         <motion.div
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1 }}
-          className="bg-gray-900 shadow-lg rounded-lg p-8 w-full transform hover:scale-105 transition"
+          className="relative bg-white border border-purple-200 shadow-xl rounded-2xl p-0 flex flex-col min-w-0"
         >
-          <h2 className="text-3xl font-semibold mb-5">Reach Us</h2>
-          <p className="text-gray-400 mb-4">
-            Have questions? Let's collaborate!
-          </p>
-
-          {/* Social Links */}
-          <div className="mt-5 flex flex-col space-y-4">
-            <a
-              href="https://www.facebook.com/anshikachohann"
-              className="text-white text-lg hover:text-gray-400 transition"
-            >
-              🎵 Facebook
-            </a>
-            <a
-              href="mailto:internationalswarmusicalfounda@gmail.com"
-              className="text-white text-lg hover:text-gray-400 transition"
-            >
-              📧 Email
-            </a>
-            <a
-              href="https://www.youtube.com/@swarmusicalfoundationsmfan2633"
-              className="text-white text-lg hover:text-gray-400 transition"
-            >
-              🎻 YouTube
-            </a>
+          {/* Accent Bar */}
+          <div className="h-2 w-full bg-purple-400 rounded-t-2xl" />
+          <div className="p-6 sm:p-8">
+            <h2 className="text-xl font-bold text-purple-700 mb-4 text-center">Reach Us Directly</h2>
+            <div className="flex flex-col space-y-5">
+              <a
+                href="https://www.facebook.com/anshikachohann"
+                className="flex items-center space-x-4 group"
+                target="_blank" rel="noopener noreferrer"
+              >
+                <span className="w-10 h-10 bg-purple-100 border-2 border-purple-200 rounded-full flex items-center justify-center text-xl group-hover:bg-purple-200 transition">🎵</span>
+                <span className="text-base font-medium text-purple-700 group-hover:text-purple-900 transition">Facebook</span>
+              </a>
+              <a
+                href="mailto:internationalswarmusicalfounda@gmail.com"
+                className="flex items-center space-x-4 group"
+              >
+                <span className="w-10 h-10 bg-purple-100 border-2 border-purple-200 rounded-full flex items-center justify-center text-xl group-hover:bg-purple-200 transition">📧</span>
+                <span className="text-base font-medium text-purple-700 group-hover:text-purple-900 transition">Email</span>
+              </a>
+              <a
+                href="https://www.youtube.com/@swarmusicalfoundationsmfan2633"
+                className="flex items-center space-x-4 group"
+                target="_blank" rel="noopener noreferrer"
+              >
+                <span className="w-10 h-10 bg-purple-100 border-2 border-purple-200 rounded-full flex items-center justify-center text-xl group-hover:bg-purple-200 transition">🎻</span>
+                <span className="text-base font-medium text-purple-700 group-hover:text-purple-900 transition">YouTube</span>
+              </a>
+            </div>
           </div>
         </motion.div>
       </div>

@@ -1,105 +1,69 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
-import { motion } from "framer-motion";
+import logo from "../media/home/logo.png";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+
+  const navLinks = [
+    { label: "Home", to: "/" },
+    { label: "About Us", to: "/aboutus" },
+    { label: "Magazine", to: "/magazine" },
+    { label: "Team", to: "/team" },
+    { label: "Artist Corner", to: "/artistcorner" },
+    { label: "Top Trends", to: "/toptrends" },
+    { label: "Gallery", to: "/gallery" },
+    { label: "Contact Us", to: "/contactus" }
+  ];
 
   return (
-    <motion.nav
-      initial={{ opacity: 0, y: -30 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      className="bg-gray-50 text-gray-900 shadow-lg border-b border-gray-300 font-sans fixed top-0 w-full z-50"
-    >
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 flex justify-between h-16 items-center">
-        {/* Logo - Smaller and Left Aligned */}
-        <Link
-          to="/"
-          className="text-lg font-extrabold tracking-wide text-[#2C3E50] ml-2 whitespace-nowrap"
-        >
-          Swar Musical
+    <nav className="fixed top-0 left-0 w-full z-50 bg-white bg-opacity-90 text-gray-900 shadow">
+      <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-2">
+        {/* Logo */}
+        <Link to="/" className="flex items-center h-14">
+          <img src={logo} alt="Swar Musical Foundation Logo" className="h-12 w-auto object-contain" />
         </Link>
-
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex space-x-6">
-          {[
-            "Home",
-            "About Us",
-            "Team",
-            "Magazine",
-            "Artist Corner",
-
-            "Top Trends",
-            "Gallery",
-            "Contact Us",
-          ].map((item, index) => (
-            <motion.div
-              key={index}
-              whileHover={{ scale: 1.05, rotate: -2 }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ type: "spring", stiffness: 200 }}
+        {/* Desktop Nav */}
+        <div className="hidden md:flex flex-1 justify-center space-x-8">
+          {navLinks.map(({ label, to }) => (
+            <Link
+              key={to}
+              to={to}
+              className={`uppercase tracking-wide font-medium px-2 pb-1 transition border-b-2 ${location.pathname === to ? "border-blue-600 text-blue-700" : "border-transparent hover:border-blue-400 hover:text-blue-600"}`}
             >
-              <Link
-                to={`/${item.replace(/\s+/g, "").toLowerCase()}`}
-                className="hover:text-[#F39C12] transition text-sm font-medium tracking-wide px-3 py-2 rounded-lg hover:bg-[#2C3E50] hover:text-white"
-              >
-                {item}
-              </Link>
-            </motion.div>
+              {label}
+            </Link>
           ))}
         </div>
-
-        {/* Mobile Menu Button */}
-        <motion.div
-          className="md:hidden"
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-        >
-          <button onClick={() => setIsOpen(!isOpen)} className="text-[#2C3E50]">
+        {/* Socials & Menu */}
+        <div className="flex items-center space-x-4">
+          <a href="#" className="hover:text-blue-500"><i className="fa-brands fa-facebook-f"></i></a>
+          <a href="#" className="hover:text-blue-500"><i className="fa-brands fa-twitter"></i></a>
+          <a href="#" className="hover:text-blue-500"><i className="fa-brands fa-instagram"></i></a>
+          <a href="#" className="hover:text-blue-500"><i className="fa-brands fa-dribbble"></i></a>
+          <button onClick={() => setIsOpen(!isOpen)} className="md:hidden ml-2">
             {isOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
-        </motion.div>
+        </div>
       </div>
-
-      {/* Mobile Navigation */}
-      <motion.div
-        initial={{ height: 0, opacity: 0 }}
-        animate={
-          isOpen ? { height: "auto", opacity: 1 } : { height: 0, opacity: 0 }
-        }
-        transition={{ duration: 0.5, ease: "easeInOut" }}
-        className="md:hidden overflow-hidden bg-[#2C3E50] p-4 border-t border-[#F39C12] rounded-b-lg shadow-lg"
-      >
-        {[
-          "Home",
-          "About Us",
-          "Team",
-          "Magazine",
-          "Artist Corner",
-
-          "Top Trends",
-          "Gallery",
-          "Contact Us",
-        ].map((item, index) => (
-          <motion.div
-            key={index}
-            whileHover={{ scale: 1.05, rotate: -2 }}
-            whileTap={{ scale: 0.95 }}
-            transition={{ type: "spring", stiffness: 200 }}
-          >
+      {/* Mobile Nav */}
+      {isOpen && (
+        <div className="md:hidden bg-white bg-opacity-95 px-6 pb-4 pt-2 flex flex-col space-y-2 shadow">
+          {navLinks.map(({ label, to }) => (
             <Link
-              to={`/${item.replace(/\s+/g, "").toLowerCase()}`}
-              className="block py-2 text-white hover:text-[#F39C12] text-sm font-medium tracking-wide border-b border-[#F39C12] last:border-b-0"
+              key={to}
+              to={to}
+              className={`uppercase tracking-wide font-medium py-2 border-b border-gray-200 ${location.pathname === to ? "text-blue-700" : "text-gray-700 hover:text-blue-600"}`}
               onClick={() => setIsOpen(false)}
             >
-              {item}
+              {label}
             </Link>
-          </motion.div>
-        ))}
-      </motion.div>
-    </motion.nav>
+          ))}
+        </div>
+      )}
+    </nav>
   );
 };
 

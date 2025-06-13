@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 const timelineData = [
@@ -32,87 +31,74 @@ const artists = [
   "Pandit Meera Vaishnav (Sugam Sangeet - Raipur, Chhattisgarh)",
 ];
 
-const AboutUs = () => {
-  const [isDark, setIsDark] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsDark(window.scrollY > window.innerHeight / 2);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
+function AboutUs() {
   return (
-    <div
-      className={`min-h-screen transition-colors duration-500 ${
-        isDark ? "bg-black text-white" : "bg-white text-black"
-      }`}
-    >
-      <br />
-      <br />
+    <div className="min-h-screen bg-white text-gray-900">
       {/* Intro Section */}
       <motion.div
-        className="text-center py-16 px-6 md:px-12 lg:px-20"
+        className="text-center pt-32 pb-16 px-6 md:px-12 lg:px-20"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6 }}
       >
-        <h2 className="text-5xl font-extrabold tracking-wide">
+        <h2 className="text-4xl sm:text-5xl font-extrabold tracking-tight mb-4">
           Swar Musical Foundation
         </h2>
-        <p className="text-lg mt-4">
+        <p className="text-lg sm:text-xl text-gray-700 max-w-2xl mx-auto">
           Promoting Indian Classical Music & Art Globally
         </p>
       </motion.div>
 
       {/* Timeline */}
-      <div className="py-12 px-6 md:px-12 lg:px-20">
-        <h2 className="text-4xl font-bold text-center mb-8">
+      <section className="py-12 px-6 md:px-12 lg:px-20">
+        <h2 className="text-3xl sm:text-4xl font-bold text-center mb-10 tracking-wide uppercase text-gray-900">
           Foundation History
         </h2>
-        <div className="space-y-6">
-          {timelineData.map((item, index) => (
-            <motion.div
-              key={index}
-              className="text-center border-l-4 border-gray-500 pl-4 py-2"
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.2 }}
-            >
-              <h3 className="text-xl font-semibold">{item.year}</h3>
-              <p className="text-gray-500">{item.event}</p>
-            </motion.div>
-          ))}
+        <div className="max-w-3xl mx-auto">
+          <div className="border-l-4 border-purple-600 pl-6 space-y-8">
+            {timelineData.map((item, index) => (
+              <motion.div
+                key={index}
+                className="relative bg-white rounded-lg shadow p-6 mb-2"
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.15 }}
+              >
+                <div className="absolute -left-8 top-6 w-6 h-6 bg-purple-600 rounded-full border-4 border-white shadow" />
+                <h3 className="text-lg font-bold text-purple-700 mb-1">{item.year}</h3>
+                <p className="text-gray-700">{item.event}</p>
+              </motion.div>
+            ))}
+          </div>
         </div>
-      </div>
+      </section>
 
       {/* Featured Artists */}
-      <motion.div
-        className="py-12 px-6 md:px-12 lg:px-20"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.6 }}
-      >
-        <h2 className="text-4xl font-bold text-center mb-6">
+      <section className="py-12 px-6 md:px-12 lg:px-20 bg-gray-50">
+        <motion.h2
+          className="text-3xl sm:text-4xl font-bold text-center mb-8 tracking-wide uppercase text-gray-900"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.6 }}
+        >
           Featured Artists
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        </motion.h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {artists.map((artist, index) => (
             <motion.div
               key={index}
-              className="bg-gray-900 text-white p-6 rounded-lg shadow-md text-center hover:scale-105 transition-transform"
+              className="bg-white border border-purple-100 p-6 rounded-xl shadow hover:shadow-lg text-center transition-all"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
+              transition={{ delay: index * 0.05 }}
             >
-              <h3 className="text-lg font-semibold">{artist}</h3>
+              <h3 className="text-lg font-semibold text-purple-700 mb-2">{artist}</h3>
             </motion.div>
           ))}
         </div>
-      </motion.div>
+      </section>
     </div>
   );
-};
+}
 
 export default AboutUs;

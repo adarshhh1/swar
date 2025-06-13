@@ -64,7 +64,7 @@ const topIndianClassicalMusic = [
   },
 ];
 
-const ArtistCorner = () => {
+function ArtistCorner() {
   const [artData, setArtData] = useState([]);
 
   useEffect(() => {
@@ -87,95 +87,82 @@ const ArtistCorner = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-black text-white py-16 px-6 flex flex-col items-center">
-      <br />
-      <br />
-
+    <div className="min-h-screen bg-white text-gray-900 pt-32 pb-20 px-6 flex flex-col items-center">
       {/* Music Section */}
       <motion.h1
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
-        className="text-4xl font-semibold text-center border-b-2 border-white pb-2 mb-10"
+        className="text-4xl sm:text-5xl font-extrabold text-center text-purple-700 mb-12 tracking-tight uppercase"
       >
         Top 10 Indian Classical Music
       </motion.h1>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 max-w-6xl mx-auto">
         {topIndianClassicalMusic.map((track, index) => (
           <MusicCard key={index} track={track} />
         ))}
       </div>
-
       {/* Art Section */}
       <motion.h1
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
-        className="text-4xl font-semibold text-center border-b-2 border-white pb-2 mt-16 mb-10"
+        className="text-4xl sm:text-5xl font-extrabold text-center text-purple-700 mt-20 mb-12 tracking-tight uppercase"
       >
         Art of the Day
       </motion.h1>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 max-w-6xl mx-auto">
         {artData.map((art, index) => (
           <ArtCard key={index} art={art} />
         ))}
       </div>
     </div>
   );
-};
+}
 
-const MusicCard = ({ track }) => {
-  const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(
-    track.title
-  )}`;
-
+function MusicCard({ track }) {
+  const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(track.title)}`
   return (
     <motion.div
-      className="bg-[#1a1a1a] rounded-lg shadow-md p-6 flex flex-col items-center transition-all hover:shadow-lg cursor-pointer w-72 border border-white"
-      whileHover={{ scale: 1.05 }}
+      className="relative bg-gradient-to-br from-purple-50 to-white border border-purple-200 rounded-2xl shadow-lg p-0 flex flex-col items-stretch transition-all hover:shadow-2xl hover:-translate-y-1 cursor-pointer group"
+      whileHover={{ scale: 1.04, borderColor: '#a78bfa' }}
       onClick={() => window.open(searchUrl, "_blank")}
     >
-      <h3 className="text-lg font-semibold text-white text-center">
-        {track.title}
-      </h3>
-      <p className="text-sm text-gray-400 text-center">{track.artist}</p>
-      <p className="text-xs text-gray-500 text-center mt-2">
-        {track.description}
-      </p>
+      {/* Accent Bar */}
+      <div className="h-2 w-full bg-purple-400 rounded-t-2xl" />
+      <div className="flex-1 flex flex-col justify-between p-6">
+        <h3 className="text-lg font-bold text-purple-700 mb-1 group-hover:text-purple-900 transition-colors">{track.title}</h3>
+        <p className="text-sm text-gray-500 mb-2">{track.artist}</p>
+        <p className="text-xs text-gray-400">{track.description}</p>
+      </div>
     </motion.div>
-  );
-};
+  )
+}
 
-const ArtCard = ({ art }) => {
-  const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(
-    art.title
-  )}`;
-
+function ArtCard({ art }) {
+  const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(art.title)}`
   return (
     <motion.div
-      className="bg-[#1a1a1a] rounded-lg shadow-md p-6 flex flex-col items-center transition-all hover:shadow-lg cursor-pointer w-72 border border-white"
-      whileHover={{ scale: 1.05 }}
+      className="relative bg-gradient-to-br from-purple-50 to-white border border-purple-200 rounded-2xl shadow-lg p-0 flex flex-col items-stretch transition-all hover:shadow-2xl hover:-translate-y-1 cursor-pointer group"
+      whileHover={{ scale: 1.04, borderColor: '#a78bfa' }}
       onClick={() => window.open(searchUrl, "_blank")}
     >
+      {/* Accent Bar */}
+      <div className="h-2 w-full bg-purple-400 rounded-t-2xl" />
       {art.image && (
         <img
           src={art.image}
           alt={art.title}
-          className="w-full h-40 object-cover mb-4 rounded-lg"
+          className="w-full h-40 object-cover rounded-b-none rounded-t-none rounded-2xl"
         />
       )}
-
-      <h3 className="text-lg font-semibold text-white text-center">
-        {art.title}
-      </h3>
-      <p className="text-sm text-gray-400 text-center">{art.artist}</p>
-      <p className="text-xs text-gray-500 text-center mt-2">
-        {art.description}
-      </p>
+      <div className="flex-1 flex flex-col justify-between p-6">
+        <h3 className="text-lg font-bold text-purple-700 mb-1 group-hover:text-purple-900 transition-colors">{art.title}</h3>
+        <p className="text-sm text-gray-500 mb-2">{art.artist}</p>
+        <p className="text-xs text-gray-400">{art.description}</p>
+      </div>
     </motion.div>
-  );
-};
+  )
+}
 
 export default ArtistCorner;

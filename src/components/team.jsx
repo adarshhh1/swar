@@ -6,26 +6,6 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const Team = () => {
-  const [bgColor, setBgColor] = useState("#000000"); // Start with black
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      const transitionPoint = window.innerHeight * 0.8; // 80% of viewport height
-
-      // Calculate dynamic fade between black and white
-      const opacity = Math.min(scrollPosition / transitionPoint, 1);
-      const newBgColor = `rgb(${255 * opacity}, ${255 * opacity}, ${
-        255 * opacity
-      })`;
-
-      setBgColor(newBgColor);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   const settings = {
     dots: false,
     infinite: true,
@@ -44,80 +24,65 @@ const Team = () => {
   };
 
   return (
-    <motion.div
-      className="transition-all duration-700"
-      style={{ backgroundColor: bgColor, minHeight: "100vh" }}
-    >
-      {/* Full Page Title Section */}
-      <div className="h-screen flex justify-center items-center bg-black">
+    <div className="min-h-screen bg-white text-gray-900">
+      {/* Title Section */}
+      <div className="pt-32 pb-10 text-center">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="text-6xl font-extrabold text-white uppercase"
+          className="text-4xl sm:text-5xl font-extrabold tracking-tight mb-2"
         >
           Meet Our Team
         </motion.h1>
+        <p className="text-lg sm:text-xl text-gray-700 max-w-2xl mx-auto">
+          Dedicated professionals and artists behind Swar Musical Foundation
+        </p>
       </div>
 
       {/* Team Section */}
-      <div className="py-16 px-6 flex flex-col items-center transition-all duration-700">
-        <div className="max-w-6xl w-full space-y-10">
+      <div className="py-16 px-6 flex flex-col items-center">
+        <div className="max-w-6xl w-full space-y-16">
           {teamData.map((category, index) => (
             <div key={index} className="text-center">
-              <h2 className="text-2xl font-semibold text-black mb-6 uppercase border-b-2 border-gray-500 pb-2">
+              <h2 className="text-2xl font-bold text-purple-700 mb-6 uppercase tracking-wide">
                 {category.title}
               </h2>
               <Slider {...settings} className="px-4">
                 {category.members.map((member, memIndex) => (
-                  <MemberCard
-                    key={memIndex}
-                    member={member}
-                    bgColor={bgColor}
-                  />
+                  <MemberCard key={memIndex} member={member} />
                 ))}
               </Slider>
             </div>
           ))}
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 
-const MemberCard = ({ member, bgColor }) => {
-  const textColor =
-    bgColor === "rgb(255, 255, 255)" ? "text-black" : "text-white";
-  const borderColor =
-    bgColor === "rgb(255, 255, 255)" ? "border-gray-300" : "border-gray-700";
-
+const MemberCard = ({ member }) => {
   return (
     <motion.div
-      className={`relative border shadow-lg rounded-2xl p-6 flex flex-col items-center justify-between transition-all w-64 h-80 mx-auto ${borderColor} ${textColor}`}
-      style={{ backgroundColor: bgColor }}
+      className="relative bg-white border border-purple-100 shadow-md rounded-2xl p-6 flex flex-col items-center justify-between transition-all w-64 mx-auto hover:shadow-xl hover:-translate-y-1 duration-200"
+      whileHover={{ scale: 1.05 }}
     >
-      {/* Profile Image (Colored) */}
-      <motion.div
-        className="w-24 h-24 rounded-full p-1 flex items-center justify-center overflow-hidden border-4 shadow-md transition-transform"
-        whileHover={{ scale: 1.2 }}
-      >
+      {/* Profile Image */}
+      <div className="w-24 h-24 mb-4 rounded-full bg-gradient-to-tr from-purple-200 to-purple-400 p-1 flex items-center justify-center">
         <img
           src={member.image}
           alt={member.name}
-          className="w-full h-full object-cover rounded-full"
+          className="w-full h-full object-cover rounded-full border-4 border-white shadow"
         />
-      </motion.div>
-
+      </div>
       {/* Name */}
-      <motion.h3
-        className="mt-4 text-xl font-bold text-center w-full transition-transform"
-        whileHover={{ scale: 1.1 }}
-      >
+      <h3 className="text-xl font-bold text-center text-gray-900 mb-2">
         {member.name}
-      </motion.h3>
-
-      {/* Role */}
-      <p className="text-sm font-medium text-center w-full">{member.role}</p>
+      </h3>
+      {/* Role as pill/badge */}
+      <span className="inline-block px-4 py-1 mt-1 text-sm font-medium bg-purple-100 text-purple-700 rounded-full shadow-sm">
+        {member.role}
+      </span>
     </motion.div>
   );
 };

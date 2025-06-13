@@ -32,14 +32,12 @@ const Magazine = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-black py-16 px-6 flex flex-col items-center">
-      <br />
-      <br />
+    <div className="min-h-screen bg-white py-20 px-6 flex flex-col items-center">
       <motion.h1
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
-        className="text-4xl font-bold text-center text-white mb-10 uppercase"
+        className="text-4xl sm:text-5xl font-extrabold text-center text-purple-700 mb-12 tracking-tight uppercase"
       >
         Hindi Literature Books
       </motion.h1>
@@ -49,7 +47,7 @@ const Magazine = () => {
           No books found. Try searching manually.
         </p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
           {books.map((book, index) => (
             <BookCard key={index} book={book} rank={index + 1} />
           ))}
@@ -72,15 +70,15 @@ const BookCard = ({ book, rank }) => {
 
   return (
     <motion.div
-      className="relative bg-gray-900 rounded-lg shadow-lg p-6 flex flex-col items-center transition-all hover:shadow-2xl cursor-pointer border border-white"
-      whileHover={{ scale: 1.05, borderColor: "#ffffff" }}
+      className="relative bg-white border border-purple-100 rounded-xl shadow-lg p-6 flex flex-col items-center transition-all hover:shadow-2xl cursor-pointer"
+      whileHover={{ scale: 1.05, borderColor: "#a78bfa" }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       onClick={handleSearch}
     >
       {/* Book Cover */}
       <motion.div
-        className="w-32 h-48 rounded-lg bg-gray-700 flex items-center justify-center overflow-hidden border-2 border-white"
+        className="w-32 h-48 rounded-lg bg-purple-50 flex items-center justify-center overflow-hidden border-2 border-purple-200"
         whileHover={{ scale: 1.1 }}
       >
         <img
@@ -91,10 +89,10 @@ const BookCard = ({ book, rank }) => {
       </motion.div>
 
       {/* Book Details */}
-      <h3 className="mt-4 text-lg font-semibold text-white text-center">
+      <h3 className="mt-4 text-lg font-bold text-purple-700 text-center">
         #{rank} {book.title}
       </h3>
-      <p className="text-sm text-gray-300">
+      <p className="text-sm text-gray-500 text-center">
         {book.authors?.map((a) => a.name).join(", ") || "Unknown Author"}
       </p>
 
@@ -104,12 +102,12 @@ const BookCard = ({ book, rank }) => {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1.2 }}
           transition={{ duration: 0.3 }}
-          className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-80 flex flex-col justify-center items-center rounded-lg"
+          className="absolute top-0 left-0 w-full h-full bg-white bg-opacity-95 flex flex-col justify-center items-center rounded-xl shadow-2xl z-10"
         >
           <img
             src={coverURL}
             alt={book.title}
-            className="w-48 h-64 object-cover border-4 border-white rounded-lg shadow-xl"
+            className="w-48 h-64 object-cover border-4 border-purple-200 rounded-xl shadow-xl"
           />
         </motion.div>
       )}

@@ -43,43 +43,43 @@ const Trends = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-5">
-      <br />
-      <br />
-      <br />
-      <br />
-
-      <h1 className="text-center text-4xl font-bold mb-8 text-blue-600">
+    <div className="min-h-screen bg-white pt-32 pb-20 px-6">
+      <h1 className="text-center text-4xl sm:text-5xl font-extrabold text-purple-700 mb-12 tracking-tight uppercase">
         Top Trends in Indian Classical Music (2025)
       </h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 max-w-6xl mx-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 max-w-6xl mx-auto">
         {trends.map((trend, index) => (
           <div
             key={index}
-            className="p-5 border rounded-lg shadow-lg bg-white hover:shadow-2xl transition duration-300 transform hover:scale-105 cursor-pointer"
+            className="relative bg-gradient-to-br from-white via-purple-50 to-white border-l-8 border-purple-400 rounded-2xl shadow-lg p-0 flex flex-col items-stretch transition-all hover:shadow-2xl hover:-translate-y-2 cursor-pointer group"
             onClick={() => openModal(trend)}
           >
-            <div className="h-60 bg-gray-300 flex items-center justify-center text-gray-600 text-lg font-semibold rounded-lg">
-              🎵 {trend.name}
+            {/* Circular Icon */}
+            <div className="flex justify-center -mt-8 mb-2">
+              <div className="w-16 h-16 bg-purple-100 border-4 border-white rounded-full flex items-center justify-center shadow text-3xl">
+                🎵
+              </div>
             </div>
-            <h2 className="text-xl font-bold mt-3">{trend.name}</h2>
-            <p className="text-gray-700">{trend.description}</p>
+            <div className="flex-1 flex flex-col justify-between p-6 pt-2">
+              <h2 className="text-lg font-bold text-purple-700 mb-1 group-hover:text-purple-900 transition-colors truncate">{trend.name}</h2>
+              <p className="text-gray-500 mb-3 text-sm line-clamp-3">{trend.description}</p>
+              <span className="inline-block mt-auto text-xs font-semibold text-purple-600 bg-purple-50 rounded-full px-3 py-1 shadow-sm self-start">Click for lyrics</span>
+            </div>
           </div>
         ))}
       </div>
-
       {/* Lyrics Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-5">
-          <div className="bg-white p-6 rounded-lg shadow-xl w-full max-w-2xl">
-            <h2 className="text-2xl font-bold mb-4 text-center text-blue-600">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-5 z-50">
+          <div className="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-2xl border-t-4 border-purple-500">
+            <h2 className="text-2xl font-bold mb-4 text-center text-purple-700">
               {selectedSong?.name}
             </h2>
-            <p className="text-gray-700 text-center whitespace-pre-line">
+            <p className="text-gray-700 text-center whitespace-pre-line text-lg">
               {selectedSong?.lyrics}
             </p>
             <button
-              className="mt-4 w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700 transition"
+              className="mt-8 w-full bg-purple-600 text-white p-3 rounded-lg font-semibold hover:bg-purple-700 transition"
               onClick={() => setIsModalOpen(false)}
             >
               Close
