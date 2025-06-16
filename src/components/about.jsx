@@ -12,23 +12,74 @@ const timelineData = [
 ];
 
 const artists = [
-  "Pandit Umesh Kampu Wale (Classical Vocal - Gwalior & Banaras Gharana)",
-  "Su Shri Rita Dev (Thumri Vocal - Banaras Gharana)",
-  "Shri Bharat Nayak (Sitar - Gwalior)",
-  "Su Shri Anjana Jha (Kathak Dance - Jaipur Gharana)",
-  "Shri Sunil Paoge (Hawaiian Guitar)",
-  "Su Shri Meeta Pandit (Classical Vocal - Gwalior Gharana)",
-  "Padma Shri Moinuddin Khan (Sarangi - Jaipur Gharana)",
-  "Dr. Veena Joshi (Classical Vocal - Gwalior Gharana)",
-  "Shri Anshul Pratap Singh (Tabla - Bhopal)",
-  "Su Shri Ayushi Chauhan & Shri Piyush Jha (Kathak - Raigarh & Lucknow Gharana)",
-  "Ustad Abdul Majid Khan (Sarangi - Gwalior)",
-  "Nainika Ghosh (Kathak Dance - Kolkata)",
-  "Su Shri Shiva Nayak (Kathak Dance)",
-  "Lakshman Prabhakar Gohadkar (Classical Vocal - Gwalior Gharana)",
-  "Shri Hemang Kolhatkar (Classical Vocal - Gwalior Gharana)",
-  "Shri Ritikesh Gurudev Chari & Shri Drishal Gurudev Chari (Classical Vocal - Goa, India)",
-  "Pandit Meera Vaishnav (Sugam Sangeet - Raipur, Chhattisgarh)",
+  {
+    name: "Pandit Umesh Kampu Wale",
+    role: "Classical Vocal - Gwalior & Banaras Gharana",
+  },
+  {
+    name: "Su Shri Rita Dev",
+    role: "Thumri Vocal - Banaras Gharana",
+  },
+  {
+    name: "Shri Bharat Nayak",
+    role: "Sitar - Gwalior",
+  },
+  {
+    name: "Su Shri Anjana Jha",
+    role: "Kathak Dance - Jaipur Gharana",
+  },
+  {
+    name: "Shri Sunil Paoge",
+    role: "Hawaiian Guitar",
+  },
+  {
+    name: "Su Shri Meeta Pandit",
+    role: "Classical Vocal - Gwalior Gharana",
+  },
+  {
+    name: "Padma Shri Moinuddin Khan",
+    role: "Sarangi - Jaipur Gharana",
+  },
+  {
+    name: "Dr. Veena Joshi",
+    role: "Classical Vocal - Gwalior Gharana",
+  },
+  {
+    name: "Shri Anshul Pratap Singh",
+    role: "Tabla - Bhopal",
+  },
+  {
+    name: "Su Shri Ayushi Chauhan & Shri Piyush Jha",
+    role: "Kathak - Raigarh & Lucknow Gharana",
+  },
+  {
+    name: "Ustad Abdul Majid Khan",
+    role: "Sarangi - Gwalior",
+  },
+  {
+    name: "Nainika Ghosh",
+    role: "Kathak Dance - Kolkata",
+  },
+  {
+    name: "Su Shri Shiva Nayak",
+    role: "Kathak Dance",
+  },
+  {
+    name: "Lakshman Prabhakar Gohadkar",
+    role: "Classical Vocal - Gwalior Gharana",
+  },
+  {
+    name: "Shri Hemang Kolhatkar",
+    role: "Classical Vocal - Gwalior Gharana",
+  },
+  {
+    name: "Shri Ritikesh Gurudev Chari & Shri Drishal Gurudev Chari",
+    role: "Classical Vocal - Goa, India",
+  },
+  {
+    name: "Pandit Meera Vaishnav",
+    role: "Sugam Sangeet - Raipur, Chhattisgarh",
+  },
 ];
 
 function AboutUs() {
@@ -65,7 +116,9 @@ function AboutUs() {
                 transition={{ duration: 0.5, delay: index * 0.15 }}
               >
                 <div className="absolute -left-8 top-6 w-6 h-6 bg-purple-600 rounded-full border-4 border-white shadow" />
-                <h3 className="text-lg font-bold text-purple-700 mb-1">{item.year}</h3>
+                <h3 className="text-lg font-bold text-purple-700 mb-1">
+                  {item.year}
+                </h3>
                 <p className="text-gray-700">{item.event}</p>
               </motion.div>
             ))}
@@ -92,7 +145,8 @@ function AboutUs() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.05 }}
             >
-              <h3 className="text-lg font-semibold text-purple-700 mb-2">{artist}</h3>
+              <h3 className="text-xl font-bold text-gray-900">{artist.name}</h3>
+              <p className="text-sm text-purple-600 mt-2">{artist.role}</p>
             </motion.div>
           ))}
         </div>
