@@ -1,11 +1,11 @@
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useState, useRef } from "react";
 import backgroundImage from "../media/home/background.jpg";
 import logo from "../media/home/logo.png";
-import artist1 from "../media/home/artist1.png";
-import artist2 from "../media/home/artist2.png";
-import artist3 from "../media/home/artist3.png";
-import homeImg from "../media/home/home.png";
+import dm1 from "../media/home/dm1.jpg";
+import dm2 from "../media/home/dm2.jpg";
+import dm3 from "../media/home/dm3.jpg";
+import dm4 from "../media/home/dm4.jpg";
 
 const ScrollFadeIn = ({ children, delay = 0.3 }) => {
   const ref = useRef(null);
@@ -24,22 +24,23 @@ const ScrollFadeIn = ({ children, delay = 0.3 }) => {
 };
 
 const Home = () => {
+  const [showModal, setShowModal] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const openModal = () => setShowModal(true);
+
   return (
     <div className="min-h-screen flex flex-col font-serif">
       {/* Hero Section */}
       <div
         className="relative min-h-screen flex flex-col justify-center items-center text-center bg-cover bg-center px-6"
-        style={{
-          backgroundImage: `url(${backgroundImage})`,
-        }}
+        style={{ backgroundImage: `url(${backgroundImage})` }}
       >
-        {/* Overlay */}
         <div className="absolute inset-0 bg-black/60" />
         <div className="relative z-10 flex flex-col items-center justify-center w-full max-w-3xl mx-auto pt-24 pb-16">
           <img
             src={logo}
             alt="Swar Musical Foundation Logo"
-            className="h-55 w-auto  drop-shadow-xl bg-black/30 rounded-full mb-6 shadow-lg"
+            className="h-55 w-auto drop-shadow-xl bg-black/30 rounded-full mb-6 shadow-lg"
             style={{ filter: "drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1))" }}
             loading="lazy"
             decoding="async"
@@ -58,115 +59,138 @@ const Home = () => {
             A powerful platform for the preservation and promotion of Indian
             music, culture, and art.
           </p>
-          <div className="relative mb-4 flex items-center justify-center">
-            {/* Animated Glowing Ring */}
-            <span className="absolute inline-flex h-24 w-24 rounded-full bg-gradient-to-tr from-purple-400 via-purple-200 to-transparent opacity-60 animate-pulse z-0" />
-            <button
-              className="relative w-20 h-20 flex items-center justify-center rounded-full bg-white/30 backdrop-blur-md border-2 border-purple-200 shadow-xl hover:scale-110 hover:shadow-2xl transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-purple-300 group overflow-hidden"
-              aria-label="Play New Single"
-            >
-              {/* Glassy Layer */}
-              <span className="absolute inset-0 rounded-full bg-white/20 backdrop-blur-sm z-0" />
-              <svg
-                className="w-10 h-10 text-purple-700 group-hover:text-purple-900 transition z-10"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <circle
-                  cx="12"
-                  cy="12"
-                  r="11"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                />
-                <polygon points="10,8 17,12 10,16" fill="currentColor" />
-              </svg>
-            </button>
-          </div>
         </div>
       </div>
 
       {/* Upcoming Events Section */}
-      <section className="bg-white py-16 px-6 sm:px-8 md:px-16">
-        <h2 className="text-3xl sm:text-4xl font-bold text-center text-gray-900 mb-10 tracking-wide uppercase">
-          Upcoming Events
+      <section className="bg-white py-20 px-6 sm:px-8 md:px-16">
+        <h2 className="text-4xl sm:text-5xl font-bold text-center text-purple-800 mb-12 tracking-wide uppercase relative">
+          <span className="inline-block border-b-4 border-purple-500 pb-2">
+            🌟 Upcoming Events 🌟
+          </span>
         </h2>
         <div className="flex justify-center mb-8">
-          <span className="inline-block animate-bounce text-purple-600 text-3xl">
-            &#8595;
+          <span className="inline-block animate-bounce text-purple-600 text-4xl">
+            ↓
           </span>
         </div>
-        {(() => {
-          // Shuffle images for randomness
-          const images = [
-            artist1,
-            artist2,
-            artist3,
-            homeImg,
-            backgroundImage,
-            logo,
-          ];
-          const shuffled = images.sort(() => 0.5 - Math.random());
-          const events = [
-            {
-              image: shuffled[0],
-              date: "Dec 15, 2024",
-              title: "Swar Sangeet Mahotsav",
-              location: "Bhopal, Madhya Pradesh, India",
-            },
-            {
-              image: shuffled[1],
-              date: "Jan 10, 2025",
-              title: "Classical Night",
-              location: "Lucknow, Uttar Pradesh, India",
-            },
-            {
-              image: shuffled[2],
-              date: "Feb 20, 2025",
-              title: "Folk Fusion Fest",
-              location: "Pune, Maharashtra, India",
-            },
-          ];
-          return (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-              {events.map((event, idx) => (
-                <div
-                  key={idx}
-                  className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition p-0 overflow-hidden flex flex-col"
+
+        <div className="grid grid-cols-1 md:grid-cols-1 gap-8 max-w-4xl mx-auto">
+          <div
+            className="relative group rounded-2xl overflow-hidden shadow-2xl hover:shadow-purple-400 transition-transform duration-300 transform hover:-translate-y-2 bg-purple-50 cursor-pointer"
+            onClick={openModal}
+          >
+            <img
+              src={dm1}
+              alt="Darbar-e-Mehfil 2025"
+              className="w-full h-72 object-cover group-hover:scale-105 transition-transform duration-300"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-10"></div>
+            <span className="absolute top-4 left-4 z-20 bg-white text-purple-700 text-xs font-bold px-4 py-1 rounded-full shadow-md uppercase tracking-wider">
+              April 12, 2025
+            </span>
+            <div className="absolute bottom-0 left-0 right-0 p-6 z-20 text-white">
+              <h3 className="text-3xl font-bold mb-2 drop-shadow-xl text-white">
+                Darbar-e-Mehfil 2025
+              </h3>
+              <p className="text-sm text-purple-100 mb-4 flex items-center italic">
+                <svg
+                  className="w-4 h-4 mr-2 text-purple-300"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
                 >
-                  <div className="relative">
-                    <img
-                      src={event.image}
-                      alt={event.title}
-                      className="w-full h-64 object-cover"
-                    />
-                    <span className="absolute top-4 left-4 bg-purple-700 text-white text-xs font-semibold px-4 py-1 rounded-full shadow">
-                      {event.date}
-                    </span>
+                  <path d="M10 2C6.13 2 3 5.13 3 9c0 5.25 7 11 7 11s7-5.75 7-11c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 10 6a2.5 2.5 0 0 1 0 5.5z" />
+                </svg>
+                T.N. Memorial Hall, Bhopal
+              </p>
+              <button className="inline-block px-6 py-2 rounded-full bg-white text-purple-700 hover:bg-purple-100 font-bold text-sm shadow-lg transition duration-300">
+                Read More
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Modal */}
+        {showModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+            <div className="bg-white max-w-3xl w-full p-6 rounded-lg shadow-xl overflow-y-auto max-h-[80vh] relative">
+              <button
+                onClick={() => setShowModal(false)}
+                className="absolute top-4 right-4 text-gray-700 hover:text-black text-2xl"
+              >
+                &times;
+              </button>
+              <div className="space-y-4">
+                <h2 className="text-3xl font-bold text-purple-700">
+                  Darbar-e-Mehfil 2025
+                </h2>
+                <div className="text-gray-700 space-y-2">
+                  <p>
+                    <strong className="text-purple-600">📅 Date & Time:</strong>{" "}
+                    April 12, 2025 | 6:00 PM onwards
+                  </p>
+                  <p>
+                    <strong className="text-purple-600">📍 Venue:</strong> T.N.
+                    Memorial Hall, Bhopal
+                  </p>
+                  <p>
+                    <strong className="text-purple-600">🎶 Overview:</strong> A
+                    celebration of Indian classical music, bringing together
+                    talented vocalists, instrumentalists, and cultural
+                    performers in an unforgettable evening of art and tradition.
+                  </p>
+                  <div>
+                    <strong className="text-purple-600">✨ Highlights:</strong>
+                    <ul className="list-disc list-inside ml-4 mt-1">
+                      <li>Classical vocal and instrumental performances</li>
+                      <li>Folk fusion acts and traditional dance showcases</li>
+                      <li>Felicitation of iconic musical contributors</li>
+                    </ul>
                   </div>
-                  <div className="p-6 flex-1 flex flex-col justify-between">
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">
-                      {event.title}
-                    </h3>
-                    <div className="flex items-center text-gray-500 text-sm">
-                      <svg
-                        className="w-4 h-4 mr-1 text-purple-600"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path d="M10 2C6.13 2 3 5.13 3 9c0 5.25 7 11 7 11s7-5.75 7-11c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 10 6a2.5 2.5 0 0 1 0 5.5z" />
-                      </svg>
-                      {event.location}
-                    </div>
+                  <p>
+                    <strong className="text-purple-600">🎫 Entry:</strong>{" "}
+                    Invitation only (passes required)
+                  </p>
+                  <p>
+                    <strong className="text-purple-600">📞 Contact:</strong>{" "}
+                    swarfoundation@email.com | +91-XXXXXXXXXX
+                  </p>
+                </div>
+                <div className="mt-6">
+                  <h3 className="text-lg font-semibold mb-2 text-purple-700">
+                    📷 Gallery
+                  </h3>
+                  <div className="flex space-x-4 overflow-x-auto pb-2">
+                    {[dm2, dm3, dm4].map((img, i) => (
+                      <img
+                        key={i}
+                        src={img}
+                        alt={`Gallery ${i + 1}`}
+                        onClick={() => setSelectedImage(img)}
+                        className="h-40 w-64 object-cover rounded-lg shadow-md flex-shrink-0 cursor-pointer hover:scale-105 transition"
+                      />
+                    ))}
                   </div>
                 </div>
-              ))}
+              </div>
             </div>
-          );
-        })()}
-      </section>
+          </div>
+        )}
 
+        {/* Fullscreen Image Viewer */}
+        {selectedImage && (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80"
+            onClick={() => setSelectedImage(null)}
+          >
+            <img
+              src={selectedImage}
+              alt="Full View"
+              className="max-w-full max-h-full rounded-lg shadow-xl"
+            />
+          </div>
+        )}
+      </section>
       {/* About Section */}
       <section className="px-6 sm:px-8 md:px-16 py-16 bg-white text-gray-800 text-center">
         <ScrollFadeIn>
