@@ -147,10 +147,7 @@ const Home = () => {
                       <li>Felicitation of iconic musical contributors</li>
                     </ul>
                   </div>
-                  <p>
-                    <strong className="text-purple-600">🎫 Entry:</strong>{" "}
-                    Invitation only (passes required)
-                  </p>
+
                   <p>
                     <strong className="text-purple-600">📞 Contact:</strong>{" "}
                     swarfoundation@email.com
