@@ -153,7 +153,7 @@ const Home = () => {
                   </p>
                   <p>
                     <strong className="text-purple-600">📞 Contact:</strong>{" "}
-                    swarfoundation@email.com | +91-XXXXXXXXXX
+                    swarfoundation@email.com
                   </p>
                 </div>
                 <div className="mt-6">
